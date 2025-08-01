@@ -129,7 +129,7 @@ def get_config(
     }
     used_ports = shared_utils.get_port_specs(used_port_assignments)
     
-    dashboard_port_spec = PortSpec(8080, PortProtocol.TCP, wait_strategy=None)
+    dashboard_port_spec = PortSpec(8080, "TCP" , wait_strategy=None)
     used_ports.append(dashboard_port_spec)
 
     cmd = [
