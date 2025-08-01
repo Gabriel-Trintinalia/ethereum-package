@@ -131,7 +131,7 @@ def get_config(
     
     dashboard_port_spec = PortSpec(8080, "TCP")
     used_ports.update({"dashboard": dashboard_port_spec})
-    public_ports = {"dashboard": 8080}
+    public_ports.update({"dashboard": dashboard_port_spec})
     cmd = [
         "besu",
         "--logging=" + log_level,
