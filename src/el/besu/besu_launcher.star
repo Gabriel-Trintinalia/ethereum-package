@@ -169,7 +169,7 @@ def get_config(
         "--bonsai-limit-trie-logs-enabled=false"
         "--Xin-process-rpc-enabled=true",
         "--Xin-process-rpc-apis=ADMIN,ETH,TRACE",
-        "--snapsync-synchronizer-transaction-indexing-enabled=true"
+        "--snapsync-synchronizer-transaction-indexing-enabled=true",
 
         if "verkle" not in network_params.network
         else "",
