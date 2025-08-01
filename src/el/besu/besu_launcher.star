@@ -167,6 +167,10 @@ def get_config(
         "--metrics-port={0}".format(METRICS_PORT_NUM),
         "--min-gas-price=1000000000",
         "--bonsai-limit-trie-logs-enabled=false"
+        "--Xin-process-rpc-enabled=true",
+        "--Xin-process-rpc-apis="ADMIN,ETH,TRACE",
+        "--snapsync-synchronizer-transaction-indexing-enabled=true"
+
         if "verkle" not in network_params.network
         else "",
     ]
