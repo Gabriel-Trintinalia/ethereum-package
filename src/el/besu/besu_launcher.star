@@ -131,7 +131,7 @@ def get_config(
     
     dashboard_port_spec = PortSpec(8080, "TCP")
     used_ports.update({"dashboard": dashboard_port_spec})
-
+    public_ports.update({"dashboard": 8080})
     cmd = [
         "besu",
         "--logging=" + log_level,
@@ -252,8 +252,7 @@ def get_config(
             | {constants.NODE_INDEX_LABEL_KEY: str(participant_index + 1)},
             supernode=participant.supernode,
         ),
-        "user": User(uid=0, gid=0),
-        "tolerations": tolerations,
+        "user": User(uid=0, gid=0),public_ports        "tolerations": tolerations,
         "node_selectors": node_selectors,
     }
 
