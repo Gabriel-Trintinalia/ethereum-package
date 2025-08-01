@@ -252,7 +252,8 @@ def get_config(
             | {constants.NODE_INDEX_LABEL_KEY: str(participant_index + 1)},
             supernode=participant.supernode,
         ),
-        "user": User(uid=0, gid=0),public_ports        "tolerations": tolerations,
+        "user": User(uid=0, gid=0),        
+        "tolerations": tolerations,
         "node_selectors": node_selectors,
     }
 
