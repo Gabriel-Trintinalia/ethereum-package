@@ -9,6 +9,7 @@ DEFAULT_GUESTS = [
     struct(
         image="ghcr.io/gabriel-trintinalia/zevm-stateless:latest",
         binary="/out/bin/zevm_stateless",
+        name="",
     ),
 ]
 
@@ -49,7 +50,7 @@ def launch(
     guest_specs = []  # "name:/mount/path/binary"
 
     for i, guest in enumerate(guests):
-        name = _short_name(guest.image)
+        name = guest.name if guest.name != "" else _short_name(guest.image)
         bin_name = guest.binary.split("/")[-1]
         mount_dir = "/guests/{0}".format(i)
         mount_path = "{0}/{1}".format(mount_dir, bin_name)

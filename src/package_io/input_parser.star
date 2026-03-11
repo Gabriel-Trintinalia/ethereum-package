@@ -908,7 +908,11 @@ def input_parser(plan, input_args):
         stateless_executor_params=struct(
             image=result["stateless_executor_params"]["image"],
             guests=[
-                struct(image=g["image"], binary=g["binary"])
+                struct(
+                    image=g["image"],
+                    binary=g["binary"],
+                    name=g.get("name", ""),
+                )
                 for g in result["stateless_executor_params"]["guests"]
             ],
             fork_name=result["stateless_executor_params"]["fork_name"],
