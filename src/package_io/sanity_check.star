@@ -458,6 +458,11 @@ SUBCATEGORY_PARAMS = {
         "builder_api",
         "epbs_builder",
     ],
+    "stateless_executor_params": [
+        "image",
+        "guests",
+        "fork_name",
+    ],
 }
 
 ADDITIONAL_SERVICES_PARAMS = [
