@@ -2412,11 +2412,11 @@ def get_devnet_modified_images(network_name, default_images):
 
 def get_default_stateless_executor_params():
     return {
-        "image": "ghcr.io/eth-proofs/stateless-executor:latest",
+        "image": "ghcr.io/gabriel-trintinalia/stateless-executor:latest",
         "guests": [
             {
-                "image": "ghcr.io/eth-proofs/zevm-stateless:latest",
-                "binary": "/usr/local/bin/zevm-stateless",
+                "image": "ghcr.io/gabriel-trintinalia/zevm-stateless:latest",
+                "binary": "/out/bin/zevm_stateless",
             },
         ],
         "fork_name": "",

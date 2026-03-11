@@ -2,13 +2,13 @@ SERVICE_NAME = "stateless-executor"
 HTTP_PORT_ID = "http"
 HTTP_PORT_NUM = 8080
 
-DEFAULT_IMAGE = "ghcr.io/Gabriel-Trintinalia/stateless-executor:latest"
+DEFAULT_IMAGE = "ghcr.io/gabriel-trintinalia/stateless-executor:latest"
 
 # Default guest: zevm-stateless binary inside the zevm-stateless image.
 DEFAULT_GUESTS = [
     struct(
-        image="ghcr.io/eth-proofs/zevm-stateless:latest",
-        binary="/usr/local/bin/zevm-stateless",
+        image="ghcr.io/gabriel-trintinalia/zevm-stateless:latest",
+        binary="/out/bin/zevm_stateless",
     ),
 ]
 
