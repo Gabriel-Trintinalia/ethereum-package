@@ -904,7 +904,7 @@ def run(plan, args={}):
             plan.print("Successfully launched prometheus")
         elif additional_service == "grafana":
             plan.print("Launching grafana...")
-            grafana.launch_grafana(
+            grafana_url = grafana.launch_grafana(
                 plan,
                 grafana_datasource_config_template,
                 grafana_dashboards_config_template,
@@ -917,6 +917,8 @@ def run(plan, args={}):
                 tempo_query_url,
             )
             plan.print("Successfully launched grafana")
+            if "stateless_executor" in args_with_right_defaults.additional_services:
+                plan.print("stateless-executor dashboard: {0}/d/stateless-verification/stateless-block-verification".format(grafana_url))
         elif additional_service == "tempo":
             plan.print("Launching tempo...")
             tempo.launch_tempo(
@@ -1069,7 +1071,7 @@ def run(plan, args={}):
             prometheus_grafana_index,
         )
         plan.print("Launching grafana...")
-        grafana.launch_grafana(
+        grafana_url = grafana.launch_grafana(
             plan,
             grafana_datasource_config_template,
             grafana_dashboards_config_template,
@@ -1082,6 +1084,8 @@ def run(plan, args={}):
             tempo_query_url,
         )
         plan.print("Successfully launched grafana")
+        if "stateless_executor" in args_with_right_defaults.additional_services:
+            plan.print("stateless-executor dashboard: {0}/d/stateless-verification/stateless-block-verification".format(grafana_url))
 
     if args_with_right_defaults.wait_for_finalization:
         plan.print("Waiting for the first finalized epoch")

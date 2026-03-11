@@ -90,7 +90,8 @@ def launch_grafana(
         public_ports,
     )
 
-    plan.add_service(SERVICE_NAME, config)
+    service = plan.add_service(SERVICE_NAME, config)
+    return service.ports[HTTP_PORT_ID].url
 
 
 def get_grafana_config_dir_artifact_uuid(
