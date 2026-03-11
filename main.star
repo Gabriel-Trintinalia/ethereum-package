@@ -1045,9 +1045,8 @@ def run(plan, args={}):
                 plan,
                 all_el_contexts,
                 image=se_params.image,
-                guest_images=se_params.guest_images,
+                guests=se_params.guests,
                 fork_name=se_params.fork_name,
-                docker_host=se_params.docker_host,
             )
             plan.print("Successfully launched stateless-executor")
         else:

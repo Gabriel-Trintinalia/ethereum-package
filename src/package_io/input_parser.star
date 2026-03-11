@@ -907,9 +907,11 @@ def input_parser(plan, input_args):
         ),
         stateless_executor_params=struct(
             image=result["stateless_executor_params"]["image"],
-            guest_images=result["stateless_executor_params"]["guest_images"],
+            guests=[
+                struct(image=g["image"], binary=g["binary"])
+                for g in result["stateless_executor_params"]["guests"]
+            ],
             fork_name=result["stateless_executor_params"]["fork_name"],
-            docker_host=result["stateless_executor_params"]["docker_host"],
         ),
         additional_services=result["additional_services"],
         wait_for_finalization=result["wait_for_finalization"],
@@ -2411,7 +2413,11 @@ def get_devnet_modified_images(network_name, default_images):
 def get_default_stateless_executor_params():
     return {
         "image": "ghcr.io/eth-proofs/stateless-executor:latest",
-        "guest_images": ["ghcr.io/eth-proofs/zevm-stateless:latest"],
+        "guests": [
+            {
+                "image": "ghcr.io/eth-proofs/zevm-stateless:latest",
+                "binary": "/usr/local/bin/zevm-stateless",
+            },
+        ],
         "fork_name": "",
-        "docker_host": "",
     }
