@@ -164,23 +164,19 @@ def get_config(
         GRAFANA_DASHBOARDS_DIRPATH_ON_SERVICE: grafana_dashboards_artifacts_name,
     }
 
-    # Only pass public_ports when non-empty. An empty dict causes Kurtosis to
-    # return the internal service URL from service.ports[id].url instead of the
-    # host-mapped ephemeral URL, breaking the dashboard link in the plan output.
-    if len(public_ports) > 0:
-        return ServiceConfig(
-            image=grafana_params.image,
-            ports=USED_PORTS,
-            env_vars=env_vars,
-            files=files,
-            min_cpu=grafana_params.min_cpu,
-            max_cpu=grafana_params.max_cpu,
-            min_memory=grafana_params.min_mem,
-            max_memory=grafana_params.max_mem,
-            node_selectors=node_selectors,
-            tolerations=tolerations,
-            public_ports=public_ports,
-        )
+    # When port_publisher is not configured, public_ports is empty and
+    # service.ports[id].url returns the internal service URL (grafana:3000).
+    # Fall back to mapping Grafana's port to itself on the host so that the
+    # returned URL is host-accessible.
+    if len(public_ports) == 0:
+        public_ports = {
+            HTTP_PORT_ID: shared_utils.new_port_spec(
+                HTTP_PORT_NUMBER_UINT16,
+                shared_utils.TCP_PROTOCOL,
+                shared_utils.HTTP_APPLICATION_PROTOCOL,
+            )
+        }
+
     return ServiceConfig(
         image=grafana_params.image,
         ports=USED_PORTS,
@@ -192,6 +188,7 @@ def get_config(
         max_memory=grafana_params.max_mem,
         node_selectors=node_selectors,
         tolerations=tolerations,
+        public_ports=public_ports,
     )
 
 
