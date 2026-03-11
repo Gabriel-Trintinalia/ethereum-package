@@ -556,6 +556,26 @@
           }
         ]
       },
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "indexByName": {
+              "block": 0,
+              "valid": 1,
+              "guest": 2,
+              "tx_count": 3,
+              "gas_used": 4,
+              "duration_ms": 5,
+              "witness_from": 6,
+              "error": 7,
+              "log": 8
+            },
+            "renameByName": {},
+            "excludeByName": {}
+          }
+        }
+      ],
       "targets": [
         {
           "datasource": {
