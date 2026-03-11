@@ -139,9 +139,9 @@ def get_grafana_config_dir_artifact_uuid(
         result = plan.run_sh(
             name="patch-stateless-executor-dashboard",
             description="Injecting stateless-executor public URL into dashboard",
-            run="find /dashboards -name '*.json' -exec sed -i 's|__STATELESS_EXECUTOR_URL__|{0}|g' {{}} \\;".format(stateless_executor_url),
+            run="cp -r /dashboards /tmp/dashboards-patched && find /tmp/dashboards-patched -name '*.json' -exec sed -i 's|__STATELESS_EXECUTOR_URL__|{0}|g' {{}} \\;".format(stateless_executor_url),
             files={GRAFANA_DASHBOARDS_DIRPATH_ON_SERVICE: grafana_dashboards_artifacts_name},
-            store=[GRAFANA_ADDITIONAL_DASHBOARDS_MERGED_STORED_PATH_FORMAT],
+            store=["/tmp/dashboards-patched/*"],
         )
         grafana_dashboards_artifacts_name = result.files_artifacts[0]
 
