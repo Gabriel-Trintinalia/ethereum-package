@@ -596,7 +596,7 @@
           "root_selector": "",
           "source": "url",
           "type": "json",
-          "url": "__STATELESS_EXECUTOR_URL__/results",
+          "url": "http://stateless-executor:8080/results",
           "url_options": {
             "data": "",
             "method": "GET"
