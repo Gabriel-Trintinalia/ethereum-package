@@ -1042,13 +1042,14 @@ def run(plan, args={}):
         elif additional_service == "stateless_executor":
             plan.print("Launching stateless-executor")
             se_params = args_with_right_defaults.stateless_executor_params
-            stateless_executor.launch(
+            se_result = stateless_executor.launch(
                 plan,
                 all_el_contexts,
                 image=se_params.image,
                 guests=se_params.guests,
                 fork_name=se_params.fork_name,
             )
+            prometheus_additional_metrics_jobs.append(se_result.metrics_job)
             plan.print("Successfully launched stateless-executor")
         else:
             fail("Invalid additional service %s" % (additional_service))

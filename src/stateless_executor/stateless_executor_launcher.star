@@ -100,6 +100,14 @@ def launch(
         http_url=public_url,
         metrics_url="{0}/metrics".format(public_url),
         results_url="{0}/results".format(public_url),
+        # Prometheus scrape job — append to prometheus_additional_metrics_jobs
+        metrics_job={
+            "Name": "stateless-executor",
+            "Endpoint": "{0}:{1}".format(service.ip_address, HTTP_PORT_NUM),
+            "MetricsPath": "/metrics",
+            "Labels": {},
+            "ScrapeInterval": "15s",
+        },
     )
 
 
