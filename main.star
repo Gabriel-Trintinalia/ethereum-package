@@ -66,7 +66,7 @@ spamoor = import_module("./src/spamoor/spamoor.star")
 slashoor = import_module("./src/slashoor/slashoor_launcher.star")
 ews = import_module("./src/ews/ews_launcher.star")
 stateless_executor = import_module(
-    "github.com/Gabriel-Trintinalia/stateless-executor/kurtosis/launcher.star"
+    "./src/stateless_executor/stateless_executor_launcher.star"
 )
 
 GRAFANA_USER = "admin"
