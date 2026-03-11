@@ -434,7 +434,7 @@
                 "value": [
                   {
                     "title": "View log",
-                    "url": "http://stateless-executor:8080/output/${__data.fields.block}",
+                    "url": "__STATELESS_EXECUTOR_URL__/output/${__data.fields.block}",
                     "targetBlank": true
                   }
                 ]
@@ -596,7 +596,7 @@
           "root_selector": "",
           "source": "url",
           "type": "json",
-          "url": "http://stateless-executor:8080/results",
+          "url": "__STATELESS_EXECUTOR_URL__/results",
           "url_options": {
             "data": "",
             "method": "GET"

@@ -50,6 +50,7 @@ def launch_grafana(
     port_publisher,
     index,
     tempo_query_url=None,
+    stateless_executor_url="",
 ):
     tolerations = shared_utils.get_tolerations(global_tolerations=global_tolerations)
 
@@ -64,6 +65,7 @@ def launch_grafana(
         prometheus_private_url,
         tempo_query_url,
         additional_dashboards=grafana_params.additional_dashboards,
+        stateless_executor_url=stateless_executor_url,
     )
 
     merged_dashboards_artifact_name = merge_dashboards_artifacts(
@@ -101,6 +103,7 @@ def get_grafana_config_dir_artifact_uuid(
     prometheus_private_url,
     tempo_query_url,
     additional_dashboards=[],
+    stateless_executor_url="",
 ):
     datasource_data = new_datasource_config_template_data(
         prometheus_private_url, tempo_query_url
@@ -131,6 +134,16 @@ def get_grafana_config_dir_artifact_uuid(
     grafana_dashboards_artifacts_name = plan.upload_files(
         static_files.GRAFANA_DASHBOARDS_CONFIG_DIRPATH, name="grafana-dashboards"
     )
+
+    if stateless_executor_url != "":
+        result = plan.run_sh(
+            name="patch-stateless-executor-dashboard",
+            description="Injecting stateless-executor public URL into dashboard",
+            run="find /dashboards -name '*.json' -exec sed -i 's|__STATELESS_EXECUTOR_URL__|{0}|g' {{}} \\;".format(stateless_executor_url),
+            files={GRAFANA_DASHBOARDS_DIRPATH_ON_SERVICE: grafana_dashboards_artifacts_name},
+            store=[GRAFANA_ADDITIONAL_DASHBOARDS_MERGED_STORED_PATH_FORMAT],
+        )
+        grafana_dashboards_artifacts_name = result.files_artifacts[0]
 
     grafana_additional_dashboards_data = upload_additional_dashboards(
         plan, additional_dashboards
