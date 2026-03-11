@@ -627,6 +627,21 @@ def run(plan, args={}):
 
     launch_prometheus_grafana = False
     grafana_url = ""
+
+    # Pre-register stateless-executor scrape job before the loop so that
+    # prometheus picks it up regardless of service order in additional_services.
+    if "stateless_executor" in args_with_right_defaults.additional_services:
+        prometheus_additional_metrics_jobs.append({
+            "Name": "stateless-executor",
+            "Endpoint": "{0}:{1}".format(
+                stateless_executor.SERVICE_NAME,
+                stateless_executor.HTTP_PORT_NUM,
+            ),
+            "MetricsPath": "/metrics",
+            "Labels": {},
+            "ScrapeInterval": "15s",
+        })
+
     for index, additional_service in enumerate(
         args_with_right_defaults.additional_services
     ):
@@ -1042,14 +1057,13 @@ def run(plan, args={}):
         elif additional_service == "stateless_executor":
             plan.print("Launching stateless-executor")
             se_params = args_with_right_defaults.stateless_executor_params
-            se_result = stateless_executor.launch(
+            stateless_executor.launch(
                 plan,
                 all_el_contexts,
                 image=se_params.image,
                 guests=se_params.guests,
                 fork_name=se_params.fork_name,
             )
-            prometheus_additional_metrics_jobs.append(se_result.metrics_job)
             plan.print("Successfully launched stateless-executor")
         else:
             fail("Invalid additional service %s" % (additional_service))
