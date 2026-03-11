@@ -420,14 +420,12 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "log"
+              "options": "has_log"
             },
             "properties": [
               {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "auto"
-                }
+                "id": "displayName",
+                "value": "log"
               },
               {
                 "id": "links",
@@ -440,18 +438,13 @@
                 ]
               },
               {
-                "id": "custom.displayMode",
-                "value": "auto"
-              },
-              {
                 "id": "mappings",
                 "value": [
                   {
-                    "type": "special",
+                    "type": "value",
                     "options": {
-                      "match": "null+nan",
-                      "result": {
-                        "text": "—",
+                      "true": {
+                        "text": "View log",
                         "index": 0
                       }
                     }
@@ -459,7 +452,7 @@
                   {
                     "type": "special",
                     "options": {
-                      "match": "empty",
+                      "match": "null+nan",
                       "result": {
                         "text": "—",
                         "index": 1
