@@ -488,6 +488,7 @@ ADDITIONAL_SERVICES_PARAMS = [
     "slashoor",
     "spamoor",
     "ews",
+    "stateless_executor",
 ]
 
 ADDITIONAL_CATEGORY_PARAMS = {
