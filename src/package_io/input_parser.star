@@ -94,6 +94,7 @@ ATTR_TO_BE_SKIPPED_AT_ROOT = (
     "ews_params",
     "buildoor_params",
     "ethereum_genesis_generator_params",
+    "stateless_executor_params",
 )
 
 
@@ -135,6 +136,7 @@ def input_parser(plan, input_args):
     result["mempool_bridge_params"] = get_default_mempool_bridge_params()
     result["ews_params"] = get_default_ews_params()
     result["buildoor_params"] = get_default_buildoor_params()
+    result["stateless_executor_params"] = get_default_stateless_executor_params()
 
     if constants.NETWORK_NAME.shadowfork in result["network_params"]["network"]:
         shadow_base = result["network_params"]["network"].split("-shadowfork")[0]
@@ -240,6 +242,10 @@ def input_parser(plan, input_args):
             for sub_attr in input_args["buildoor_params"]:
                 sub_value = input_args["buildoor_params"][sub_attr]
                 result["buildoor_params"][sub_attr] = sub_value
+        elif attr == "stateless_executor_params":
+            for sub_attr in input_args["stateless_executor_params"]:
+                sub_value = input_args["stateless_executor_params"][sub_attr]
+                result["stateless_executor_params"][sub_attr] = sub_value
 
     if result.get("snooper_enabled"):
         plan.print(
@@ -898,6 +904,12 @@ def input_parser(plan, input_args):
             send_concurrency=result["mempool_bridge_params"]["send_concurrency"],
             polling_interval=result["mempool_bridge_params"]["polling_interval"],
             retry_interval=result["mempool_bridge_params"]["retry_interval"],
+        ),
+        stateless_executor_params=struct(
+            image=result["stateless_executor_params"]["image"],
+            guest_images=result["stateless_executor_params"]["guest_images"],
+            fork_name=result["stateless_executor_params"]["fork_name"],
+            docker_host=result["stateless_executor_params"]["docker_host"],
         ),
         additional_services=result["additional_services"],
         wait_for_finalization=result["wait_for_finalization"],
@@ -2394,3 +2406,12 @@ def get_devnet_modified_images(network_name, default_images):
             modified_images[client_type] = get_devnet_image_tag(network_name, image)
 
     return modified_images
+
+
+def get_default_stateless_executor_params():
+    return {
+        "image": "ghcr.io/eth-proofs/stateless-executor:latest",
+        "guest_images": ["ghcr.io/eth-proofs/zevm-stateless:latest"],
+        "fork_name": "",
+        "docker_host": "",
+    }

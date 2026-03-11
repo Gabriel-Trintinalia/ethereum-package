@@ -65,6 +65,9 @@ get_prefunded_accounts = import_module(
 spamoor = import_module("./src/spamoor/spamoor.star")
 slashoor = import_module("./src/slashoor/slashoor_launcher.star")
 ews = import_module("./src/ews/ews_launcher.star")
+stateless_executor = import_module(
+    "github.com/eth-proofs/stateless-executor/kurtosis/launcher.star"
+)
 
 GRAFANA_USER = "admin"
 GRAFANA_PASSWORD = "admin"
@@ -1035,6 +1038,18 @@ def run(plan, args={}):
                 args_with_right_defaults.docker_cache_params,
             )
             plan.print("Successfully launched execution-witness-sentry")
+        elif additional_service == "stateless_executor":
+            plan.print("Launching stateless-executor")
+            se_params = args_with_right_defaults.stateless_executor_params
+            stateless_executor.launch(
+                plan,
+                all_el_contexts,
+                image=se_params.image,
+                guest_images=se_params.guest_images,
+                fork_name=se_params.fork_name,
+                docker_host=se_params.docker_host,
+            )
+            plan.print("Successfully launched stateless-executor")
         else:
             fail("Invalid additional service %s" % (additional_service))
     if launch_prometheus_grafana:
