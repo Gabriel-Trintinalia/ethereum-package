@@ -475,6 +475,34 @@
           {
             "matcher": {
               "id": "byName",
+              "options": "tx_count"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "txs"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "gas_used"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "gas used"
+              },
+              {
+                "id": "unit",
+                "value": "locale"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
               "options": "error"
             },
             "properties": [
