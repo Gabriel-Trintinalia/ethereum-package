@@ -420,16 +420,51 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "block"
+              "options": "log"
             },
             "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "auto"
+                }
+              },
               {
                 "id": "links",
                 "value": [
                   {
-                    "title": "View output",
+                    "title": "View log",
                     "url": "http://stateless-executor:8080/output/${__data.fields.block}",
                     "targetBlank": true
+                  }
+                ]
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "auto"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "special",
+                    "options": {
+                      "match": "null+nan",
+                      "result": {
+                        "text": "—",
+                        "index": 0
+                      }
+                    }
+                  },
+                  {
+                    "type": "special",
+                    "options": {
+                      "match": "empty",
+                      "result": {
+                        "text": "—",
+                        "index": 1
+                      }
+                    }
                   }
                 ]
               }
