@@ -62,8 +62,13 @@ def launch(
             store=["/tmp/{0}".format(bin_name)],
         )
 
+        # Kurtosis preserves the full source path inside the artifact:
+        # storing /tmp/foo means the artifact root has tmp/foo.
+        # When mounted at /guests/0, the file is at /guests/0/tmp/foo.
+        actual_mount_path = "{0}/tmp/{1}".format(mount_dir, bin_name)
+
         files[mount_dir] = artifact.files_artifacts[0]
-        guest_specs.append("{0}:{1}".format(name, mount_path))
+        guest_specs.append("{0}:{1}".format(name, actual_mount_path))
 
     env_vars = {
         "EL_RPC_URLS": el_rpc_urls,
