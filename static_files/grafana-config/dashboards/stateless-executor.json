@@ -533,6 +533,24 @@
           {
             "matcher": {
               "id": "byName",
+              "options": "block"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "title": "View output",
+                    "url": "http://stateless-executor:8080/output/${__data.fields.block}",
+                    "targetBlank": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
               "options": "valid"
             },
             "properties": [
