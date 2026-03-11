@@ -151,27 +151,46 @@ def get_config(
     grafana_params,
     public_ports,
 ):
+    env_vars = {
+        CONFIG_DIRPATH_ENV_VAR: GRAFANA_CONFIG_DIRPATH_ON_SERVICE,
+        "GF_AUTH_ANONYMOUS_ENABLED": "true",
+        "GF_AUTH_ANONYMOUS_ORG_ROLE": "Admin",
+        "GF_AUTH_ANONYMOUS_ORG_NAME": "Main Org.",
+        "GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH": "/dashboards/default.json",
+    }
+    files = {
+        GRAFANA_CONFIG_DIRPATH_ON_SERVICE: grafana_config_artifacts_name,
+        GRAFANA_DASHBOARDS_DIRPATH_ON_SERVICE: grafana_dashboards_artifacts_name,
+    }
+
+    # Only pass public_ports when non-empty. An empty dict causes Kurtosis to
+    # return the internal service URL from service.ports[id].url instead of the
+    # host-mapped ephemeral URL, breaking the dashboard link in the plan output.
+    if len(public_ports) > 0:
+        return ServiceConfig(
+            image=grafana_params.image,
+            ports=USED_PORTS,
+            env_vars=env_vars,
+            files=files,
+            min_cpu=grafana_params.min_cpu,
+            max_cpu=grafana_params.max_cpu,
+            min_memory=grafana_params.min_mem,
+            max_memory=grafana_params.max_mem,
+            node_selectors=node_selectors,
+            tolerations=tolerations,
+            public_ports=public_ports,
+        )
     return ServiceConfig(
         image=grafana_params.image,
         ports=USED_PORTS,
-        env_vars={
-            CONFIG_DIRPATH_ENV_VAR: GRAFANA_CONFIG_DIRPATH_ON_SERVICE,
-            "GF_AUTH_ANONYMOUS_ENABLED": "true",
-            "GF_AUTH_ANONYMOUS_ORG_ROLE": "Admin",
-            "GF_AUTH_ANONYMOUS_ORG_NAME": "Main Org.",
-            "GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH": "/dashboards/default.json",
-        },
-        files={
-            GRAFANA_CONFIG_DIRPATH_ON_SERVICE: grafana_config_artifacts_name,
-            GRAFANA_DASHBOARDS_DIRPATH_ON_SERVICE: grafana_dashboards_artifacts_name,
-        },
+        env_vars=env_vars,
+        files=files,
         min_cpu=grafana_params.min_cpu,
         max_cpu=grafana_params.max_cpu,
         min_memory=grafana_params.min_mem,
         max_memory=grafana_params.max_mem,
         node_selectors=node_selectors,
         tolerations=tolerations,
-        public_ports=public_ports,
     )
 
 
