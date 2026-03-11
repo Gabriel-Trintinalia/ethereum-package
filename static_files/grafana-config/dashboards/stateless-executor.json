@@ -420,52 +420,6 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "has_log"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "log"
-              },
-              {
-                "id": "links",
-                "value": [
-                  {
-                    "title": "View log",
-                    "url": "__STATELESS_EXECUTOR_URL__/output/${__data.fields.block}",
-                    "targetBlank": true
-                  }
-                ]
-              },
-              {
-                "id": "mappings",
-                "value": [
-                  {
-                    "type": "value",
-                    "options": {
-                      "true": {
-                        "text": "View log",
-                        "index": 0
-                      }
-                    }
-                  },
-                  {
-                    "type": "special",
-                    "options": {
-                      "match": "null+nan",
-                      "result": {
-                        "text": "—",
-                        "index": 1
-                      }
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
               "options": "valid"
             },
             "properties": [
