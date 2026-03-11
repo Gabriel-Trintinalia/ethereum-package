@@ -60,119 +60,6 @@
   "links": [],
   "panels": [
     {
-      "id": 1,
-      "type": "timeseries",
-      "title": "Verification rate (blocks/s)",
-      "description": "Rate of successfully verified blocks per second, by guest image.",
-      "gridPos": {
-        "h": 9,
-        "w": 24,
-        "x": 0,
-        "y": 0
-      },
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "blocks/s",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "options": {
-        "legend": {
-          "calcs": [
-            "mean",
-            "last"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "rate(stateless_block_verified_total{result=\"ok\"}[1m])",
-          "instant": false,
-          "legendFormat": "{{guest}}",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "editorMode": "code",
-          "expr": "rate(stateless_block_verified_total{result=\"fail\"}[1m])",
-          "instant": false,
-          "legendFormat": "{{guest}} (fail)",
-          "range": true,
-          "refId": "B",
-          "hide": false
-        }
-      ]
-    },
-    {
       "id": 2,
       "type": "stat",
       "title": "Total verified",
@@ -180,7 +67,7 @@
         "h": 4,
         "w": 6,
         "x": 0,
-        "y": 9
+        "y": 0
       },
       "datasource": {
         "type": "prometheus",
@@ -239,7 +126,7 @@
         "h": 4,
         "w": 6,
         "x": 6,
-        "y": 9
+        "y": 0
       },
       "datasource": {
         "type": "prometheus",
@@ -302,7 +189,7 @@
         "h": 4,
         "w": 6,
         "x": 12,
-        "y": 9
+        "y": 0
       },
       "datasource": {
         "type": "prometheus",
@@ -365,7 +252,7 @@
         "h": 4,
         "w": 6,
         "x": 18,
-        "y": 9
+        "y": 0
       },
       "datasource": {
         "type": "prometheus",
@@ -425,7 +312,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 4
       },
       "datasource": {
         "type": "prometheus",
@@ -503,7 +390,7 @@
         "h": 12,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 12
       },
       "datasource": {
         "type": "yesoreyeram-infinity-datasource",
