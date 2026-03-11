@@ -1109,17 +1109,16 @@ def run(plan, args={}):
         password=GRAFANA_PASSWORD,
     )
 
+    stateless_executor_dashboard_url = None
     if grafana_url != "" and "stateless_executor" in args_with_right_defaults.additional_services:
-        plan.print("====================================================")
-        plan.print("Stateless Executor Dashboard:")
-        plan.print("  " + grafana_url + "/d/stateless-verification/stateless-block-verification")
-        plan.print("====================================================")
+        stateless_executor_dashboard_url = grafana_url + "/d/stateless-verification/stateless-block-verification"
 
     output = struct(
         grafana_info=grafana_info,
         blockscout_sc_verif_url=None
         if ("blockscout" in args_with_right_defaults.additional_services) == False
         else blockscout_sc_verif_url,
+        stateless_executor_dashboard_url=stateless_executor_dashboard_url,
         all_participants=all_participants,
         pre_funded_accounts=prefunded_accounts,
         network_params=network_params,
