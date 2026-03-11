@@ -660,6 +660,17 @@
         "query": "PBFA97CFB590B2093",
         "skipUrlSync": true,
         "type": "constant"
+      },
+      {
+        "current": {
+          "text": "infinity",
+          "value": "infinity"
+        },
+        "hide": 2,
+        "name": "DS_INFINITY",
+        "query": "infinity",
+        "skipUrlSync": true,
+        "type": "constant"
       }
     ]
   },
