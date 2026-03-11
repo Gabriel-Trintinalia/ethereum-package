@@ -588,18 +588,6 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "timestamp"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "dateTimeAsIso"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
               "options": "error"
             },
             "properties": [
